@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+  redmine_app:
+    image: redmine
+    restart: always
+    ports:
+      - "8080:3000"
+    volumes:
+      - redmine_app_data:/usr/src/redmine
+    environment:
+      REDMINE_DB_MYSQL: redmine_database
+      REDMINE_DB_PASSWORD: redmine
+      REDMINE_DB_USERNAME: redmine
+      REDMINE_DB_DATABASE: redmine
+
+  redmine_database:
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - redmine_db_data:/var/lib/mysql
+    environment:
+        MYSQL_ROOT_PASSWORD: redmine
+        MYSQL_DATABASE: redmine
+        MYSQL_USER: redmine
+        MYSQL_PASSWORD: redmine
+volumes:
+  redmine_app_data: {}
+  redmine_db_data: {}
+ 
